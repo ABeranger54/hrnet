@@ -1,21 +1,17 @@
 import { Link } from "react-router-dom";
+import Modal from "../component/Modal";
+import { useState } from "react";
 
 function Home() {
-  return (
-    <html>
-      <head>
-          <title>HRnet</title>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-          <script src="jquery.datetimepicker.full.min.js"></script>
-          <link rel="stylesheet" href="jquery.datetimepicker.css" />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-          <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-          <script src="app.js"></script>
-          <link rel="stylesheet" href="app.css" />
-      </head>
-      <body>
+
+    const [open, setOpen] = useState(false);
+
+    function submit(){
+        setOpen(true);
+    }
+
+    return (
+        <main>
           <div class="title">
               <h1>HRnet</h1>
           </div>
@@ -61,11 +57,10 @@ function Home() {
                   </select>
               </form>
 
-              <button onclick="saveEmployee()">Save</button>
+              <button onClick={() => submit()}>Save</button>
           </div>
-          <div id="confirmation" class="modal">Employee Created!</div>
-      </body>
-  </html>
+          <Modal content="Employee Created!" open={[open, setOpen]}/>
+        </main>
   );
 }
 
