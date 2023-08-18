@@ -16,7 +16,6 @@ function Modal(props) {
                     </div>
                     <img src={closeIcon} alt="Close modal" onClick={(e) => dispatch({type: "switchModal", payload: {open: false}})} />
                 </div>
-                
             </div>
           );
     }

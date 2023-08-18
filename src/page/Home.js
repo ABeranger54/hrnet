@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import Modal from "../component/Modal";
 import { useDispatch } from "react-redux";
+import FormRowSelect from "../component/FormRowSelect";
+import states from '../data/states.json'
 
 function Home() {
-
     const dispatch = useDispatch();
 
     function submit(){
@@ -28,6 +29,7 @@ function Home() {
             state: state.value,
             zipCode: zipCode.value
         };
+
         dispatch({type: "addEmployee", payload: {employee: employee}});
         dispatch({type: "switchModal", payload: {open: true}});
     }
@@ -62,8 +64,7 @@ function Home() {
                       <label htmlFor="city">City</label>
                       <input id="city" type="text" />
 
-                      <label htmlFor="state">State</label>
-                      <select name="state" id="state"></select>
+                      <FormRowSelect name="state" label="Série" options={states.map(e => [e.abbreviation, e.name])} />
 
                       <label htmlFor="zip-code">Zip Code</label>
                       <input id="zip-code" type="number" />
