@@ -1,0 +1,8 @@
+table{
+    border-spacing: 30px 0;
+    margin-bottom: 50px;
+}
+
+thead{
+    cursor: pointer;
+}

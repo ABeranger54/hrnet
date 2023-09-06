@@ -1,14 +1,11 @@
+import { useState } from "react";
 import DataTableRow from "./DataTableRow";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import "../style/dataTable.css"
 
 function DataTable(props) {
 
-    const dispatch = useDispatch();
-    var dataSort = useSelector((state) => state.sorted);
-    if(!dataSort.length){
-        dataSort = props.data;
-    }
+    const [filterValue, setFilterValue] = useState(null);
+    const [ascOrder, setAscOrder] = useState(true);
 
     const head = [];
     const body = [];
@@ -17,19 +14,31 @@ function DataTable(props) {
         head.push(<th onClick={() => sort(e.data)} key={"head" + i}>{e.title}</th>);
     });
 
-    dataSort.forEach((e, i) =>{
+    if(filterValue){
+        props.data.sort((a, b) => {
+            if(ascOrder){
+                return a[filterValue] > b[filterValue];
+            }else{
+                return a[filterValue] < b[filterValue];
+            }
+        });
+    }
+    
+    props.data.forEach((e, i) =>{
         const cols = [];
         props.columns.forEach(col => {
             cols.push(e[col.data]);
         })
-        body.push(<DataTableRow key={"row" + i} data={cols} />)
+        body.push(<DataTableRow key={"row-" + i} data={cols} id={i} />)
     })
 
     function sort(colID){
-        props.data.sort((a, b) => {
-            return a[colID] > b[colID];
-        });
-        dispatch({type: "setSortedList", payload: {sorted: dataSort}});
+        if(colID === filterValue){
+            setAscOrder(!ascOrder);
+        }else{
+            setFilterValue(colID);
+        }
+        
     }
 
     return (

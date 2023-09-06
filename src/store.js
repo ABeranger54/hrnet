@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 
 const initialState = {
     modalOpen: false,
-    sorted: [],
+    //sorted: [],
     employees: [
         {
             city: "B",
@@ -55,7 +55,7 @@ function reducer(state = initialState, action){
     switch(action.type){
         case "switchModal": return {...state, modalOpen: action.payload.open};
         case "addEmployee": return {...state, employees: [...state.employees, action.payload.employee]};
-        case "setSortedList": return {...state, sorted: action.payload.sorted};
+        //case "setSortedList": return {...state, sorted: action.payload.sorted};
         case "clear": return {...initialState}; //DEBUG
         default: return state;
     }
