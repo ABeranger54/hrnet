@@ -3,15 +3,19 @@ import Modal from "../component/Modal";
 import { useDispatch } from "react-redux";
 import FormRowSelect from "../component/FormRowSelect";
 import states from '../data/states.json'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 function Home() {
     const dispatch = useDispatch();
 
+    const [startDate, setStartDate] = useState(null);
+    const [birthDate, setBirthDate] = useState(null);
+
     function submit(){
         const firstName = document.getElementById('first-name');
         const lastName = document.getElementById('last-name');
-        const dateOfBirth = document.getElementById('date-of-birth');
-        const startDate = document.getElementById('start-date');
         const department = document.getElementById('department');
         const street = document.getElementById('street');
         const city = document.getElementById('city');
@@ -21,8 +25,8 @@ function Home() {
         const employee = {
             firstName: firstName.value,
             lastName: lastName.value,
-            dateOfBirth: dateOfBirth.value,
-            startDate: startDate.value,
+            dateOfBirth: birthDate.toLocaleDateString('fr-FR'),
+            startDate: startDate.toLocaleDateString('fr-FR'),
             department: department.value,
             street: street.value,
             city: city.value,
@@ -50,10 +54,10 @@ function Home() {
                   <input type="text" id="last-name" />
 
                   <label htmlFor="date-of-birth">Date of Birth</label>
-                  <input id="date-of-birth" type="text" />
+                  <DatePicker id="date-of-birth" selected={birthDate} onChange={(date) => setBirthDate(date)} />
 
                   <label htmlFor="start-date">Start Date</label>
-                  <input id="start-date" type="text" />
+                  <DatePicker id="start-date" selected={startDate} onChange={(date) => setStartDate(date)} />
 
                   <fieldset className="address">
                       <legend>Address</legend>

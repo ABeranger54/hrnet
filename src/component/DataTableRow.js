@@ -1,10 +1,6 @@
 function DataTableRow(props) {
-
-    const rowData = [];
-
-    props.data.forEach((e, i) => {
-        rowData.push(<td key={"row-" + props.id + "-" + i}>{e}</td>)
-    });
+    
+    const rowData = props.data.map((e, i) => <td key={"row-" + props.id + "-" + i}>{e}</td>)
 
     return (
         <tr>

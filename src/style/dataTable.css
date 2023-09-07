@@ -6,3 +6,8 @@ table{
 thead{
     cursor: pointer;
 }
+
+.searchLabel{
+    display: inline-block;
+    margin-right: 5px;
+}

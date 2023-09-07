@@ -15,7 +15,6 @@ function FormRowSelect(props) {
     );
 
     function setPropsStateOnChange(e){
-        console.log(e);
         if(props.onChangeState){
             return props.onChangeState(document.getElementById(props.name).value);
         }
