@@ -1,7 +1,7 @@
 function FormRowSelect(props) {
     const options = [];
     props.options.forEach((e, i) => {
-        options.push(<option value={e[0]} key={i}>{e[1]}</option>);
+        options.push(<option value={e.value} key={i}>{e.label}</option>);
     });
     
     return (
