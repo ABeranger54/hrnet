@@ -68,7 +68,7 @@ function Home() {
                       <label htmlFor="city">City</label>
                       <input id="city" type="text" />
 
-                      <FormRowSelect name="state" label="Série" options={states.map(e => {return {value: e.abbreviation, label: e.name}})} />
+                      <FormRowSelect name="state" label="Série" default="Select" options={states.map(e => {return {value: e.abbreviation, label: e.name}})} />
 
                       <label htmlFor="zip-code">Zip Code</label>
                       <input id="zip-code" type="number" />

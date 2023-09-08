@@ -42,8 +42,10 @@ function DataTable(props) {
     }
 
     //Paging filter
+    const entriesLower = pageValue * entriesCountValue;
+    const entriesUpper = pageValue * entriesCountValue + entriesCountValue;
     const fData = data.filter((e, i) => {
-        return (i >= pageValue * entriesCountValue && i < pageValue * entriesCountValue + entriesCountValue);
+        return (i >= entriesLower && i < entriesUpper);
     })
 
     //Creating DataTableRow components into body to be displayed
@@ -64,6 +66,7 @@ function DataTable(props) {
     //Define entries count to be displayed, called by FormRowSelect function callback (onChange)
     function reduceRows(count){
         setEntriesCountValue(parseInt(count));
+        setPage(0);
     }
 
     //Setting page id to display
@@ -100,12 +103,20 @@ function DataTable(props) {
                         {head}
                     </tr>
                 </thead>
-                <tbody>
+                {body.length > 0 && <tbody>
                     {body}
-                </tbody>
+                </tbody>}
             </table>
-            <p className="previous" onClick={() => setPage(pageValue - 1)}>Previous</p>
-            <p className="next" onClick={() => setPage(pageValue + 1)}>Next</p>
+            {!body.length && <p className="tableNoElement">No data available in table</p>}
+            <div className="dataTableBottom">
+                <div>
+                    Showing {(data.length) ? entriesLower + 1 : 0} to {(entriesUpper > data.length) ? data.length : entriesUpper} of {data.length} entries
+                </div>
+                <div className="pageNavigator">
+                    <p className="previous" onClick={() => setPage(pageValue - 1)}>Previous</p>
+                    <p className="next" onClick={() => setPage(pageValue + 1)}>Next</p>
+                </div>
+            </div>
         </div>
     );
 }

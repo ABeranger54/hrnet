@@ -5,10 +5,10 @@ function FormRowSelect(props) {
     });
     
     return (
-        <div className="formInput formSelectRow">
+        <div className={"formInput formSelectRow_" + props.name}>
             <label htmlFor={props.name}>{props.label}</label>
-            <select id={props.name} name={props.name} onChange={e => setPropsStateOnChange(e)} defaultValue="Sélectionner" disabled={props.disabled}>
-                <option value="Sélectionner" disabled>Sélectionner</option>
+            <select id={props.name} name={props.name} onChange={e => setPropsStateOnChange(e)} defaultValue="default" disabled={props.disabled}>
+                {props.default && <option value="default" disabled>{props.default}</option>}
                 {options}
             </select>
         </div>
