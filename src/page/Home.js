@@ -21,21 +21,25 @@ function Home() {
         const city = document.getElementById('city');
         const state = document.getElementById('state');
         const zipCode = document.getElementById('zip-code');
+        const birth = (birthDate) ? birthDate.toLocaleDateString('fr-FR') : null;
+        const start = (startDate) ? startDate.toLocaleDateString('fr-FR') : null;
 
         const employee = {
             firstName: firstName.value,
             lastName: lastName.value,
-            dateOfBirth: birthDate.toLocaleDateString('fr-FR'),
-            startDate: startDate.toLocaleDateString('fr-FR'),
+            dateOfBirth: birth,
+            startDate: start,
             department: department.value,
             street: street.value,
             city: city.value,
             state: state.value,
             zipCode: zipCode.value
         };
-
-        dispatch({type: "addEmployee", payload: {employee: employee}});
-        dispatch({type: "switchModal", payload: {open: true}});
+        if(employee.firstName && employee.lastName && employee.street && employee.city && employee.zipCode && employee.dateOfBirth && employee.startDate && employee.state !== "default"){
+            dispatch({type: "addEmployee", payload: {employee: employee}});
+            dispatch({type: "switchModal", payload: {open: true}});
+        }
+        
     }
 
     return (

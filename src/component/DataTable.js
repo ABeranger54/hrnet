@@ -14,20 +14,14 @@ function DataTable(props) {
     const [pageValue, setPageValue] = useState(0)
 
     //Display values definition
-    const head = props.columns.map((e, i) => <th onClick={() => sort(e.data)} key={"head" + i}>{e.title}</th>);
-    const body = [];
+    const head = props.columns.map((e, i) => <th onClick={() => onHeaderClick(e.data)} key={"head" + i}>{e.title}</th>);
 
     //Search filter
     const data = props.data.filter(row => {
-        var included = false;
-        props.columns.forEach((c) => {
-            if(row[c.data]){
-                if(row[c.data].toLowerCase().includes(searchValue.toLowerCase())){
-                    included = true;
-                }
-            }
+        const included = props.columns.filter((c) => {
+            return row[c.data] && row[c.data].toLowerCase().includes(searchValue.toLowerCase());
         })
-        return included;
+        return included.length;
     })
 
     //Sort filter
@@ -49,13 +43,10 @@ function DataTable(props) {
     })
 
     //Creating DataTableRow components into body to be displayed
-    fData.forEach((e, i) =>{
-        const cols = props.columns.map((col) => e[col.data]);
-        body.push(<DataTableRow key={"row-" + i} data={cols} id={i} />)
-    })
+    const body = fData.map((e, i) => <DataTableRow key={"row-" + i} data={props.columns.map((col) => e[col.data])} id={i} />)
 
     //Sort by columns in Ascend/Descend values
-    function sort(colID){
+    function onHeaderClick(colID){
         if(colID === filterValue){
             setAscOrder(!ascOrder);
         }else{
@@ -72,7 +63,9 @@ function DataTable(props) {
     //Setting page id to display
     function setPage(pageID){
         if(pageID <= Math.floor(props.data.length / entriesCountValue) && pageID >= 0){
-            setPageValue(pageID);
+            if(pageID < pageValue || (pageID > pageValue && pageValue * entriesCountValue + 2 <= data.length)){
+                setPageValue(pageID);
+            }
         }
     }
 
@@ -94,7 +87,7 @@ function DataTable(props) {
                 </div>
                 <div className="searchDiv">
                     <label className="searchLabel" htmlFor="search">Search:</label>
-                    <input type="text" className="search" onChange={() => search(document.querySelector(".search").value)} />
+                    <input type="text" className="search" onChange={(e) => search(e.target.value)} />
                 </div>
             </div>
             <table>
@@ -103,9 +96,7 @@ function DataTable(props) {
                         {head}
                     </tr>
                 </thead>
-                {body.length > 0 && <tbody>
-                    {body}
-                </tbody>}
+                {body.length > 0 && <tbody>{body}</tbody>}
             </table>
             {!body.length && <p className="tableNoElement">No data available in table</p>}
             <div className="dataTableBottom">
