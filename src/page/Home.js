@@ -7,13 +7,29 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 
+/*
+* Home page
+* Main page, used to collect employee's data from a form
+* Collected data will be added to Redux store
+* A confirmation modal appears as soon as data is inserted
+*/
 function Home() {
     const dispatch = useDispatch();
 
+    //Start date state, used by DatePicker component
     const [startDate, setStartDate] = useState(null);
+    //Birth date state, used by DatePicker component
     const [birthDate, setBirthDate] = useState(null);
 
+
+    /*
+    * Callback function when "save" button being clicked
+    * Collects form's data, inserts it into store and shows a modal when done
+    *
+    * @return void
+    */
     function submit(){
+        //Collecting data from form
         const firstName = document.getElementById('first-name');
         const lastName = document.getElementById('last-name');
         const department = document.getElementById('department');
@@ -24,6 +40,7 @@ function Home() {
         const birth = (birthDate) ? birthDate.toLocaleDateString('fr-FR') : null;
         const start = (startDate) ? startDate.toLocaleDateString('fr-FR') : null;
 
+        //Creating object representing an employee
         const employee = {
             firstName: firstName.value,
             lastName: lastName.value,
@@ -35,8 +52,12 @@ function Home() {
             state: state.value,
             zipCode: zipCode.value
         };
+
+        //Checking if all the data is correct (all fields are filled / all dropdowns's value are not default, etc.)
         if(employee.firstName && employee.lastName && employee.street && employee.city && employee.zipCode && employee.dateOfBirth && employee.startDate && employee.state !== "default"){
+            //Adding employee's data to Redux store
             dispatch({type: "addEmployee", payload: {employee: employee}});
+            //Changing redux state of the modal to be displayed
             dispatch({type: "switchModal", payload: {open: true}});
         }
         
@@ -72,6 +93,7 @@ function Home() {
                       <label htmlFor="city">City</label>
                       <input id="city" type="text" />
 
+                      {/* Creating FormRowSelect and passing options props by formating imported json file */}
                       <FormRowSelect name="state" label="Série" default="Select" options={states.map(e => {return {value: e.abbreviation, label: e.name}})} />
 
                       <label htmlFor="zip-code">Zip Code</label>
@@ -90,6 +112,7 @@ function Home() {
 
               <button onClick={() => submit()}>Save</button>
           </div>
+          {/* Creating modal to show a message when data is inserted into Redux store */}
           <Modal content="Employee Created!"/>
         </main>
   );
