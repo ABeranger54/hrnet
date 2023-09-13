@@ -1,4 +1,9 @@
 /*
+* WARNING: this page is not used anymore, and is only used to preview of the published package
+* This component has been converted to npm package : https://www.npmjs.com/package/@aberanger/data-table?activeTab=code
+*/
+
+/*
 * DataTableRow component
 * Represents a row in a Table, used in DataTable
 *

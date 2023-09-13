@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import DataTable from "../component/DataTable";
+
+//Importing DataTable from npm package component (https://www.npmjs.com/package/@aberanger/data-table)
+import {DataTable} from '@aberanger/data-table'
 
 /*
 * EmployeeList page

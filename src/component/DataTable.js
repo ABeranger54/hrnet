@@ -5,6 +5,11 @@ import React from "react";
 import FormRowSelect from "./FormRowSelect";
 
 /*
+* WARNING: this page is not used anymore, and is only used to preview of the published package
+* This component has been converted to npm package : https://www.npmjs.com/package/@aberanger/data-table?activeTab=code
+*/
+
+/*
 * DataTable component
 * Can sort columns by ascending / descending order
 * Can apply search filter via search bar
@@ -109,10 +114,8 @@ function DataTable(props) {
     * @retrun void
     */
     function setPage(pageID){
-        if(pageID <= Math.floor(props.data.length / entriesCountValue) && pageID >= 0){
-            if(pageID < pageValue || (pageID > pageValue && pageValue * entriesCountValue + 2 <= data.length)){
-                setPageValue(pageID);
-            }
+        if(pageID <= Math.ceil(data.length / entriesCountValue) - 1 && pageID >= 0){
+            setPageValue(pageID);
         }
     }
 
