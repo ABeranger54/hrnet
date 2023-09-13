@@ -38,8 +38,8 @@ function Home() {
         const city = document.getElementById('city');
         const state = document.getElementById('state');
         const zipCode = document.getElementById('zip-code');
-        const birth = (birthDate) ? birthDate.toLocaleDateString('fr-FR') : null;
-        const start = (startDate) ? startDate.toLocaleDateString('fr-FR') : null;
+        const birth = birthDate;
+        const start = startDate;
 
         //Creating object representing an employee
         const employee = {
@@ -95,7 +95,7 @@ function Home() {
                       <input id="city" type="text" />
 
                       {/* Creating FormRowSelect and passing options props by formating imported json file */}
-                      <FormRowSelect name="state" label="Série" default="Select" options={states.map(e => {return {value: e.abbreviation, label: e.name}})} />
+                      <FormRowSelect name="state" label="State" default="Select" options={states.map(e => {return {value: e.abbreviation, label: e.name}})} />
 
                       <label htmlFor="zip-code">Zip Code</label>
                       <input id="zip-code" type="number" />
